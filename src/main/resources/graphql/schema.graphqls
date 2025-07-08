@@ -1,0 +1,81 @@
+enum StudentStatus {
+    ACTIVE,
+    GRADUATED,
+    ON_LEAVE
+}
+
+# for subscription
+enum MutationType {
+    CREATED
+    UPDATED
+    DELETED
+}
+# ------------------------------------------------------------
+# for Student class
+type Student {
+    id: ID!
+    name: String!
+    surname: String!
+    status: StudentStatus!
+}
+
+type Teacher {
+    id: ID!
+    name: String!
+}
+
+type Enrollment {
+    student: Student!
+    course: Course!
+    grade: Float!
+}
+#for Course class
+type Course {
+    id: ID!
+    name: String!
+    teacher: Teacher!
+    enrollments: [Enrollment]
+}
+
+# event object that we will send in subscription
+type CourseEvent {
+    mutation: MutationType!
+    course: Course!
+}
+# ------------------------------------------------------------
+input CreateCourseInput {
+    name: String!
+    teacherId: ID!
+}
+
+input UpdateCourseInput {
+    name: String
+    teacherId: ID
+}
+# ------------------------------------------------------------
+
+
+# ------------------------------------------------------------
+# This section is the "entry point" to our API for reading data.
+type Query {
+    allCourses: [Course] # Defines a query and it will return a list of `Course` objects.
+    courseById(id: ID!): Course # It will iterate and return a `Course`
+}
+# ------------------------------------------------------------
+
+
+# ------------------------------------------------------------
+type Mutation {
+    createCourse(input: CreateCourseInput!): Course
+    updateCourse(id: ID!, input: UpdateCourseInput!): Course
+    deleteCourse(id: ID!): Course
+}
+# ------------------------------------------------------------
+
+
+# ------------------------------------------------------------
+
+type Subscription {
+    courseEvents: CourseEvent!
+}
+

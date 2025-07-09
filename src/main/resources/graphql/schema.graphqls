@@ -1,3 +1,13 @@
+# Only owner of the field or admin can see that field thanks to this new custom directive
+# on FIELD_DEFINITION -> this directive can only be placed on fields.
+directive @isOwnerOrAdmin on FIELD_DEFINITION
+
+
+# ------------------------------------------------------------
+
+# ----------------------- ENUMS ------------------------------
+
+# ------------------------------------------------------------
 enum StudentStatus {
     ACTIVE,
     GRADUATED,
@@ -10,6 +20,10 @@ enum MutationType {
     UPDATED
     DELETED
 }
+# ------------------------------------------------------------
+
+# ----------------------- TYPES ------------------------------
+
 # ------------------------------------------------------------
 # for Student class
 type Student {
@@ -27,7 +41,7 @@ type Teacher {
 type Enrollment {
     student: Student!
     course: Course!
-    grade: Float!
+    grade: Float! @isOwnerOrAdmin # Use the new custom directive in here
 }
 #for Course class
 type Course {
@@ -43,6 +57,10 @@ type CourseEvent {
     course: Course!
 }
 # ------------------------------------------------------------
+
+# ----------------------- INPUTS ------------------------------
+
+# ------------------------------------------------------------
 input CreateCourseInput {
     name: String!
     teacherId: ID!
@@ -54,6 +72,7 @@ input UpdateCourseInput {
 }
 # ------------------------------------------------------------
 
+# ----------------------- QUERIES ------------------------------
 
 # ------------------------------------------------------------
 # This section is the "entry point" to our API for reading data.
@@ -63,6 +82,7 @@ type Query {
 }
 # ------------------------------------------------------------
 
+# ----------------------- MUTATIONS ------------------------------
 
 # ------------------------------------------------------------
 type Mutation {
@@ -72,6 +92,7 @@ type Mutation {
 }
 # ------------------------------------------------------------
 
+# ----------------------- SUBSCRIPTIONS ------------------------------
 
 # ------------------------------------------------------------
 

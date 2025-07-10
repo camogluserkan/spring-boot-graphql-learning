@@ -5,7 +5,12 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class Teacher {
+public class Teacher implements Searchable{
     private String id;
     private String name;
+
+    @Override
+    public String getDisplayName(){
+        return this.name;
+    }
 }

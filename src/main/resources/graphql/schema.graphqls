@@ -30,19 +30,33 @@ enum MutationType {
 }
 # ------------------------------------------------------------
 
+# -------------------- INTERFACES ----------------------------
+
+# ------------------------------------------------------------
+
+
+interface Searchable {
+    id: ID!
+    displayName: String!
+}
+
+# ------------------------------------------------------------
+
 # ----------------------- TYPES ------------------------------
 
 # ------------------------------------------------------------
 # for Student class
-type Student {
+type Student implements Searchable{
     id: ID!
+    displayName: String!
     name: String!
     surname: String!
     status: StudentStatus!
 }
 
-type Teacher {
+type Teacher implements Searchable{
     id: ID!
+    displayName: String!
     name: String!
 }
 
@@ -52,8 +66,9 @@ type Enrollment {
     grade: Float! @isOwnerOrAdmin # Use the new custom directive in here
 }
 #for Course class
-type Course {
+type Course implements Searchable{
     id: ID!
+    displayName: String!
     name: String!
     teacher: Teacher!
     enrollments: [Enrollment]
@@ -88,6 +103,7 @@ input UpdateCourseInput {
 type Query {
     allCourses: [Course] # Defines a query and it will return a list of `Course` objects.
     courseById(id: ID!): Course # It will iterate and return a `Course`
+    search(keyword: String!): [Searchable] # new Query to test interface logic. Return a list of `Searchable`
 }
 # ------------------------------------------------------------
 

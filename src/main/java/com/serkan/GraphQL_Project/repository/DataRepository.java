@@ -27,7 +27,7 @@ public class DataRepository {
 
         Student student1 = new Student("user", "Ali", "Veli", StudentStatus.ACTIVE);
         Student student2 = new Student("S2", "Ayşe", "Yılmaz", StudentStatus.ACTIVE);
-        Student student3 = new Student("S3", "Mehmet", "Kaya", StudentStatus.GRADUATED);
+        Student student3 = new Student("S3", "Mehmet", "Ali", StudentStatus.GRADUATED);
         allStudents.addAll(List.of(student1, student2, student3));
 
         Course course1 = new Course("C1", "GraphQL'e Giriş", teacher1.getId(), new ArrayList<>(), LocalDate.of(2024,9,1));
@@ -98,5 +98,26 @@ public class DataRepository {
 
         // Return the removedCourse to inform program.
         return courseToRemove;
+    }
+
+
+    // For interface implementation --> Search in all of our lists by looking their `name`
+    public List<Searchable> search(String keyword) {
+        String lowerCaseKeyword = keyword.toLowerCase();
+        List<Searchable> results = new ArrayList<>();
+
+        allTeachers.stream()
+                .filter(t -> t.getName().toLowerCase().contains(lowerCaseKeyword))
+                .forEach(results::add);
+
+        allStudents.stream()
+                .filter(s -> s.getDisplayName().toLowerCase().contains(lowerCaseKeyword))
+                .forEach(results::add);
+
+        courses.stream()
+                .filter(c -> c.getName().toLowerCase().contains(lowerCaseKeyword))
+                .forEach(results::add);
+
+        return results;
     }
 }

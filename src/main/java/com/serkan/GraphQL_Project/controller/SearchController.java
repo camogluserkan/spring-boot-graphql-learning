@@ -1,9 +1,6 @@
 package com.serkan.GraphQL_Project.controller;
 
-import com.serkan.GraphQL_Project.model.Course;
-import com.serkan.GraphQL_Project.model.Searchable;
-import com.serkan.GraphQL_Project.model.Student;
-import com.serkan.GraphQL_Project.model.Teacher;
+import com.serkan.GraphQL_Project.model.*;
 import com.serkan.GraphQL_Project.repository.DataRepository;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
@@ -20,10 +17,16 @@ public class SearchController {
         this.dataRepository = dataRepository;
     }
 
-    // 1. The main resolver that satisfy search query
+    // The main resolver that satisfy search query
     @QueryMapping
     public List<Searchable> search(@Argument String keyword) {
         System.out.println("Searching for keyword: " + keyword);
         return dataRepository.search(keyword);
+    }
+
+    // New function to satisfy getEntities query in schema.
+    @QueryMapping
+    public List<Entity> getEntitiesByIds(@Argument List<String> ids) {
+        return dataRepository.findEntitiesByIds(ids);
     }
 }

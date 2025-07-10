@@ -34,10 +34,12 @@ public class GraphQlConfig {
      * This Bean will save custom directives to the GraphQL engine
      */
     @Bean
-    public RuntimeWiringConfigurer runtimeWiringConfigurer(GraphQLScalarType dateScalar) {
+    public RuntimeWiringConfigurer runtimeWiringConfigurer(GraphQLScalarType dateScalar, TypeResolver typeResolver) {
         return wiringBuilder -> wiringBuilder
                 .directive("isOwnerOrAdmin", this.isOwnerOrAdminDirectiveWiring)
-                .scalar(dateScalar); // give new scalar type to the wiring too.
+                .scalar(dateScalar) // give new scalar type to the wiring too.
+                .type("Searchable", builder -> builder.typeResolver(typeResolver)) // give new search to the wiring
+                .type("Entity", builder -> builder.typeResolver(typeResolver)); // give new entity to the wiring
     }
 
     // Implementing my own typeResolver because had some problems with imports and dependencies..

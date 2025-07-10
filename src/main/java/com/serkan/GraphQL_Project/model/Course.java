@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class Course implements Searchable{
+public class Course implements Searchable, Entity{
     private String id;
     private String name;
     private String teacherId;

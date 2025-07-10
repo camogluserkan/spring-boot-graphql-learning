@@ -120,4 +120,16 @@ public class DataRepository {
 
         return results;
     }
+
+
+    // New Method to execute for `UNION` logic
+    public List<Entity> findEntitiesByIds(List<String> ids) {
+        List<Entity> results = new ArrayList<>();
+        ids.forEach(id -> {
+            findStudentById(id).ifPresent(results::add);
+            findTeacherById(id).ifPresent(results::add);
+            findCourseById(id).ifPresent(results::add);
+        });
+        return results;
+    }
 }

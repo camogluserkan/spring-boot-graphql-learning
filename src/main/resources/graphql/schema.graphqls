@@ -39,6 +39,13 @@ interface Searchable {
     id: ID!
     displayName: String!
 }
+# ------------------------------------------------------------
+
+# ------------------- UNIONS ---------------------------
+
+# ------------------------------------------------------------
+
+union Entity = Student | Teacher | Course
 
 # ------------------------------------------------------------
 
@@ -104,6 +111,7 @@ type Query {
     allCourses: [Course] # Defines a query and it will return a list of `Course` objects.
     courseById(id: ID!): Course # It will iterate and return a `Course`
     search(keyword: String!): [Searchable] # new Query to test interface logic. Return a list of `Searchable`
+    getEntitiesByIds(ids: [ID!]!): [Entity] # new Query to test union logic. Return a list of Entity
 }
 # ------------------------------------------------------------
 

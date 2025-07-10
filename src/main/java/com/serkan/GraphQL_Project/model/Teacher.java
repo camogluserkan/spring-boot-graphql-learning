@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class Teacher implements Searchable{
+public class Teacher implements Searchable, Entity{
     private String id;
     private String name;
 

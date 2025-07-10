@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Sinks;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -56,7 +57,8 @@ public class CourseController {
                 UUID.randomUUID().toString(),
                 input.name(),
                 teacher.getId(),
-                new ArrayList<>() // empty student list
+                new ArrayList<>(), // empty student list
+                LocalDate.now()
         );
         dataRepository.addCourse(newCourse);
 

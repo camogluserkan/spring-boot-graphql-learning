@@ -46,7 +46,7 @@ public class IsOwnerOrAdminDirectiveWiring implements  SchemaDirectiveWiring{
             }
 
             // d. If all the conditions couldn't be satisfied, deny the access.
-            throw new ApplicationException("Access Denied: User is not authenticated.", ErrorType.UNAUTHORIZED);
+            throw new ApplicationException("Access Denied: User is not authenticated.", ErrorType.FORBIDDEN);
         };
 
         // 4. Tell the GraphQL: for this field, now use my new & safe DataFetcher

@@ -2,6 +2,14 @@
 # on FIELD_DEFINITION -> this directive can only be placed on fields.
 directive @isOwnerOrAdmin on FIELD_DEFINITION
 
+# ------------------------------------------------------------
+
+# ------------------- SCALAR TYPES ---------------------------
+
+# ------------------------------------------------------------
+
+scalar Date
+
 
 # ------------------------------------------------------------
 
@@ -49,6 +57,7 @@ type Course {
     name: String!
     teacher: Teacher!
     enrollments: [Enrollment]
+    creationDate: Date
 }
 
 # event object that we will send in subscription

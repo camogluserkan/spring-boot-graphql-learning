@@ -1,14 +1,12 @@
 package com.serkan.GraphQL_Project.config;
 
 import com.serkan.GraphQL_Project.directive.IsOwnerOrAdminDirectiveWiring;
-import graphql.GraphQLError;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.graphql.execution.DataFetcherExceptionResolver;
 import org.springframework.graphql.execution.RuntimeWiringConfigurer;
-import reactor.core.publisher.Mono;
 
-import java.util.List;
+import graphql.scalars.ExtendedScalars;  // for scalar types
+import graphql.schema.GraphQLScalarType;
 
 @Configuration
 public class GraphQlConfig {
@@ -19,12 +17,19 @@ public class GraphQlConfig {
         this.isOwnerOrAdminDirectiveWiring = isOwnerOrAdminDirectiveWiring;
     }
 
+    // New bean: we are declaring a standard date bean that the extended-scalars library provide us
+    @Bean
+    public GraphQLScalarType dateScalar() {
+        return ExtendedScalars.Date;
+    }
+
     /**
      * This Bean will save custom directives to the GraphQL engine
      */
     @Bean
-    public RuntimeWiringConfigurer runtimeWiringConfigurer() {
+    public RuntimeWiringConfigurer runtimeWiringConfigurer(GraphQLScalarType dateScalar) {
         return wiringBuilder -> wiringBuilder
-                .directive("isOwnerOrAdmin", this.isOwnerOrAdminDirectiveWiring);
+                .directive("isOwnerOrAdmin", this.isOwnerOrAdminDirectiveWiring)
+                .scalar(dateScalar); // give new scalar type to the wiring too.
     }
 }

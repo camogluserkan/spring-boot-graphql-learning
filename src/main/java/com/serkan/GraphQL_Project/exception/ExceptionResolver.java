@@ -17,9 +17,9 @@ public class ExceptionResolver implements DataFetcherExceptionResolver {
 
         if (exception instanceof ApplicationException ex) {
             GraphQLError graphqlError = GraphqlErrorBuilder.newError(environment)
-                    .message(ex.getMessage()) //
-                    .errorType(ex.getErrorType())
-                    .extensions(ex.getExtensions())
+                    .message(ex.getMessage()) // Take the message from our exception
+                    .errorType(ex.getErrorType()) // Take the ErrorType from our exception
+                    .extensions(ex.getExtensions()) // Take the extra information from our exception
                     .build();
 
             return Mono.just(List.of(graphqlError));

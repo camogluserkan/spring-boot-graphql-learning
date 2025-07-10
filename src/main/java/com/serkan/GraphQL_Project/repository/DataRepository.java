@@ -4,6 +4,7 @@ import com.serkan.GraphQL_Project.model.*;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -29,8 +30,8 @@ public class DataRepository {
         Student student3 = new Student("S3", "Mehmet", "Kaya", StudentStatus.GRADUATED);
         allStudents.addAll(List.of(student1, student2, student3));
 
-        Course course1 = new Course("C1", "GraphQL'e Giriş", teacher1.getId(), new ArrayList<>());
-        Course course2 = new Course("C2", "Spring Boot Derinlemesine", teacher2.getId(), new ArrayList<>());
+        Course course1 = new Course("C1", "GraphQL'e Giriş", teacher1.getId(), new ArrayList<>(), LocalDate.of(2024,9,1));
+        Course course2 = new Course("C2", "Spring Boot Derinlemesine", teacher2.getId(), new ArrayList<>(), LocalDate.of(2025,2,15));
         courses.addAll(List.of(course1, course2));
 
         Enrollment enrollment1 = new Enrollment(student1, course1, 95.5);
